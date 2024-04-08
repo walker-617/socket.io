@@ -8,7 +8,7 @@ app.use(cors());
 const server = createServer(app);
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://socket-io-r7qg.onrender.com",
   },
 });
 
