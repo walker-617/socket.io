@@ -14,31 +14,30 @@ function Room() {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-
     function messageListener(msg) {
       setMessages((prevMessages) => [...prevMessages, msg]);
     }
 
     function leftRoomListener(id) {
-      if(id === socket.id){
+      if (id === socket.id) {
         return;
       }
-      const child=document.createElement("div");
+      const child = document.createElement("div");
       child.innerHTML = id + " left the room";
-      const parent=document.getElementById("parent");
+      const parent = document.getElementById("parent");
       parent.appendChild(child);
       setTimeout(() => {
         parent.removeChild(child);
       }, 5000);
     }
 
-    function newMemberListner(id){
-      if(id === socket.id){
+    function newMemberListner(id) {
+      if (id === socket.id) {
         return;
       }
-      const child=document.createElement("div");
+      const child = document.createElement("div");
       child.innerHTML = id + " joined the room";
-      const parent=document.getElementById("parent");
+      const parent = document.getElementById("parent");
       parent.appendChild(child);
       setTimeout(() => {
         parent.removeChild(child);
@@ -46,13 +45,13 @@ function Room() {
     }
 
     socket.on("messageToClient", messageListener);
-    socket.on("leftRoom",leftRoomListener);
-    socket.on("newMember",newMemberListner);
+    socket.on("leftRoom", leftRoomListener);
+    socket.on("newMember", newMemberListner);
 
     return () => {
       socket.off("messageToClient", messageListener);
-      socket.off("leftRoom",leftRoomListener);
-      socket.off("newMember",newMemberListner);
+      socket.off("leftRoom", leftRoomListener);
+      socket.off("newMember", newMemberListner);
     };
   }, []);
 
@@ -68,12 +67,13 @@ function Room() {
   }
 
   return (
-    <div id="parent">
+    <div id="parent" style={{ margin: "10px" }}>
       <h1>Room ID : {roomId}</h1>
-      <input ref={msgRef} type="text" placeholder="Enter message" />
-      <button onClick={sendMessage}>Send</button>
-      <br />
       <button onClick={leaveRoom}>Leave Room</button>
+      <br />
+      <br />
+      <input ref={msgRef} type="text" placeholder="Enter message" style={{padding:"5px"}}/>{" "}
+      <button onClick={sendMessage} style={{padding:"5px"}}>Send</button>
       <br />
       <br />
       <div>Messages : </div>

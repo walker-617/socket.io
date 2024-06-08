@@ -44,11 +44,13 @@ function CreateEnterRoom() {
   }
 
   return (
-    <div>
+    <div style={{margin: "10px"}}>
+    <br/>
       <button onClick={() => createRoom()}>Create Room?</button>
+      <br/><br/>
       <div>Enter Room?</div>
-      <input ref={idRef} type="text" placeholder="Enter Room ID" />
-      <button onClick={() => enterRoom()}>Enter</button>
+      <input ref={idRef} type="text" placeholder="Enter Room ID" style={{padding:"5px"}}/>{" "}
+      <button onClick={() => enterRoom()} style={{padding:"5px"}}>Enter</button>
       {error ? <div style={{ color: "red" }}>{error}</div> : null}
     </div>
   );
