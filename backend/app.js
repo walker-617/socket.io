@@ -9,11 +9,21 @@ const server = createServer(app);
 const io = require("socket.io")(server, {
   cors: {
     origin: "https://socket-io-r7qg.onrender.com",
+    // origin: "http://localhost:3000",
   },
 });
 
 app.get("/", (req, res) => {
   res.send("Hello world");
+});
+
+app.get("/checkRoom/:roomId", (req, res) => {
+  const roomId = req.params.roomId;
+  if (io.sockets.adapter.rooms.get(roomId)) {
+    res.json({ exists: true });
+  } else {
+    res.json({ exists: false });
+  }
 });
 
 io.on("connection", (socket) => {

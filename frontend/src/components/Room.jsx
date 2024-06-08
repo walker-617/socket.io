@@ -20,6 +20,9 @@ function Room() {
     }
 
     function leftRoomListener(id) {
+      if(id === socket.id){
+        return;
+      }
       const child=document.createElement("div");
       child.innerHTML = id + " left the room";
       const parent=document.getElementById("parent");
@@ -30,6 +33,9 @@ function Room() {
     }
 
     function newMemberListner(id){
+      if(id === socket.id){
+        return;
+      }
       const child=document.createElement("div");
       child.innerHTML = id + " joined the room";
       const parent=document.getElementById("parent");
@@ -63,30 +69,26 @@ function Room() {
 
   return (
     <div id="parent">
+      <h1>Room ID : {roomId}</h1>
       <input ref={msgRef} type="text" placeholder="Enter message" />
-      <button
-        onClick={() => {
-          sendMessage();
-        }}
-      >
-        Send
-      </button>
+      <button onClick={sendMessage}>Send</button>
+      <br />
+      <button onClick={leaveRoom}>Leave Room</button>
+      <br />
+      <br />
+      <div>Messages : </div>
       {messages.map((msg, i) => (
-        <div key={i}>
-          {messages[messages.length - 1 - i].id} (
-          {messages[messages.length - 1 - i].role})
-          {messages[messages.length - 1 - i].id === id ? "( You )" : ""} :{" "}
-          {messages[messages.length - 1 - i].msg}
+        <div style={{ margin: "10px" }} key={i}>
+          <div style={{ fontSize: "12px", color: "gray" }}>
+            {messages[messages.length - 1 - i].id} (
+            {messages[messages.length - 1 - i].role})
+            {messages[messages.length - 1 - i].id === id && "( You )"}
+          </div>
+          <div>{messages[messages.length - 1 - i].msg}</div>
         </div>
       ))}
       <br />
-      <button
-        onClick={() => {
-          leaveRoom();
-        }}
-      >
-        Leave Room
-      </button>
+      <div>Notifications : </div>
     </div>
   );
 }
