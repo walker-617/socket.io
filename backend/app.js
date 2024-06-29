@@ -8,13 +8,20 @@ app.use(cors());
 const server = createServer(app);
 const io = require("socket.io")(server, {
   cors: {
-    origin: "https://socket-io-r7qg.onrender.com",
+    origin: "https://socket-io-test-frontend.onrender.com",
     // origin: "http://localhost:3000",
   },
 });
 
 app.get("/", (req, res) => {
   res.send("Hello world");
+});
+
+app.get("/isServerOn", (req, res) => {
+  // setTimeout(() => {
+  //   res.send("yes");
+  // }, 3000);
+  res.send("yes");
 });
 
 app.get("/checkRoom/:roomId", (req, res) => {
